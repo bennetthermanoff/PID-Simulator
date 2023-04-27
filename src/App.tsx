@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import { PID } from './pid';
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { FormControl, InputLabel, Slider, Typography } from '@mui/material';
+import { FormControl, Slider, Typography } from '@mui/material';
 import MotorSim from './motorSim';
 
 const App = () => {
@@ -28,6 +28,10 @@ const App = () => {
 		}
 		setGraphData(data as typeof graphData);
 	};
+
+	useEffect(() => {
+		calculate();
+	}, [graphSettings, pid]);
 
 	return (
 		<div className="App">
@@ -78,7 +82,7 @@ const App = () => {
 					aria-label='x-axis-min-max'
 					valueLabelDisplay='auto'
 					min={0}
-					max={5000}
+					max={500}
 					value={[graphSettings.xMin, graphSettings.xMax]}
 					onChange={(e, v) => {
 						console.log(v as [number, number]);
@@ -97,6 +101,7 @@ const App = () => {
 				<Slider
 					min={1}
 					max={1000}
+					valueLabelDisplay='auto'
 					value={graphSettings.noise} onChange={(e, v) => {
 						setGraphSettings({ ...graphSettings, noise: v as number });
 					}} />
@@ -107,6 +112,7 @@ const App = () => {
 				<Slider
 					min={0}
 					max={10}
+					valueLabelDisplay='auto'
 					value={graphSettings.friction} onChange={(e, v) => {
 						setGraphSettings({ ...graphSettings, friction: v as number });
 					}} />
@@ -116,6 +122,7 @@ const App = () => {
 				<Slider
 					min={0}
 					max={100}
+					valueLabelDisplay='auto'
 					value={graphSettings.mass} onChange={(e, v) => {
 						setGraphSettings({ ...graphSettings, mass: v as number });
 					}} />
@@ -149,8 +156,8 @@ const App = () => {
 				<Typography>
           D Constant
 				</Typography>
-				<Slider min={-1.0}
-					max={1.0}
+				<Slider min={-10.0}
+					max={10.0}
 					step={0.01}
 					valueLabelDisplay='auto'
 					value={
