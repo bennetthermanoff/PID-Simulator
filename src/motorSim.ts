@@ -28,8 +28,8 @@ class MotorSim {
 		this.cachedInputs.push(power);
 		this.position += (this.angularVelocity * deltaTime) % (2 * Math.PI);
 		const randPower = input*10 + input*Math.random() * this.powerVariation;
-		const torque = randPower / this.angularMass;
-		const angularAcceleration = torque - (this.friction * this.angularVelocity);
+		const alpha = randPower / this.angularMass;
+		const angularAcceleration = alpha - (this.friction * this.angularVelocity);
 		this.angularVelocity += angularAcceleration * deltaTime;
 	}
 

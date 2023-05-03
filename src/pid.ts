@@ -3,7 +3,6 @@ class PID {
 	Iconstant: number;
 	Dconstant: number;
 	previousError: number;
-
 	integral: number;
 	setPoint: number;
 	constructor(Pconstant: number, Iconstant: number, Dconstant: number, setPoint: number) {
